@@ -1,0 +1,84 @@
+---
+layout: page
+title: Contact
+permalink: /contact/
+tags: contact
+---
+
+<style>
+    .tooltiptext {
+        visibility: hidden;
+        padding: 7px;
+        width: 160px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #000;
+        background-color: hsla(0, 0%, 20%, 0.9);
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .tooltiptext:after{
+        visibility: hidden;
+        -webkit-transition: visibility 0.2s ease-in-out;
+        transition: visibility 0.2s ease-in-out;
+    }
+
+</style>
+
+<script src="/js/clipboard.min.js"></script>
+<script>
+    var key;
+    fetch('/brianwilliamspgp.txt').then(function(response) {
+        response.text().then(function(text) {
+            key = text;
+        });
+    });
+
+     var clipboard = new Clipboard('#copy', {
+        text: function(trigger){
+            return key;
+        }
+    });
+
+    clipboard.on('success', function(e) {
+        $('.tooltiptext').css('visibility', 'visible');
+        $('#copy').one('mouseout', function(){
+            $('.tooltiptext').fadeOut(500, function(){
+                $('.tooltiptext').css({"display": "inline","visibility": "hidden"});
+            });
+        });
+
+        e.clearSelection();
+    });
+</script>
+
+<div class="py2">
+  {% if site.ajaxify_contact_form %}
+    <form class="form-stacked">
+      <input type="text" name="email" class="field-light" placeholder="{{ site.text.contact.email }}">
+      <textarea type="text" name="content" class="field-light" rows="5" placeholder="{{ site.text.contact.content }}" style="resize: vertical"></textarea>
+      <input type="text" name="_gotcha" style="display:none" />
+      <button type='submit' class="button button-blue button-big mobile-block">{{ site.text.contact.submit }}</button>
+    </form>
+  {% else %}
+    <form action="https://formspree.io/{{ site.email }}" method="POST" class="form-stacked">
+      <input type="text" name="email" class="field-light" placeholder="{{ site.text.contact.email }}">
+      <textarea type="text" name="content" class="field-light" rows="5" placeholder="{{ site.text.contact.content }}" style="resize: vertical"></textarea>
+      <input type="hidden" name="_next" value="{{ site.baseurl }}/thanks/" />
+      <input type="hidden" name="_subject" value="{{ site.text.contact.subject }}" />
+      <input type="text" name="_gotcha" style="display:none" />
+      <input type="submit" class="button button-blue button-big mobile-block" value="{{ site.text.contact.submit }}">
+    </form>
+  {% endif %}
+</div>
+
+<p>Or email me directly at <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+<p>PGP Key:  <a href="/brianwilliamspgp.txt" target="_blank">View</a> | <a href="/brianwilliamspgp.txt" download>Download</a> | <a id="copy" data-clipboard-action="copy">Copy</a> <span class="tooltiptext">Copied</span></p>
+
+{% if site.ajaxify_contact_form %}
+  {% include ajaxify_content_form.html %}
+{% endif %}
