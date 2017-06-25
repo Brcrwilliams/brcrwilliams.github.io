@@ -4,7 +4,7 @@ email:       brian@brianwilliams.tech
 author:      Brian Williams
 description: "A blog about technology and security."
 baseurl:     ""
-url:         "https://brianwilliams.tech"
+url:         "http://brianwilliams.tech"
 date_format: "%b %-d, %Y"
 
 # Google services
