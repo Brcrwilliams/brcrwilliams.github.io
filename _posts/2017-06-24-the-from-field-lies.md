@@ -21,7 +21,7 @@ Looking at the email headers, we can see who _really_ sent the email. This one a
 
 ![Email headers](/images/1/return-path-header.png)
 
-The email protocol doesn't have any mechanism to verify or prevent the sender from altering the from header. Therefore, it's pretty easy to spoof the address that the email appears to be from. Additionally, since there's several legitimate uses for changing the from header, most email clients don't show or warn the user when it has been tampered with. This makes it easy for phishers to trick people who assume that the from address is trustworthy.
+The email protocol doesn't have any mechanism that verifies or prevents the sender from altering the from header. Therefore, it's pretty easy to spoof the address that the email appears to be from. Additionally, since there's several legitimate uses for changing the from header, most email clients don't show or warn the user when it has been tampered with. This makes it easy for phishers to trick people who assume that the from address is trustworthy.
 
 Since curiosity got the better of me, I decided to go ahead and visit the link in the email and see what these guys are up to. Just in case the site tried to exploit some XSS or CSRF vulnerabilities (doubtful), I cleared out all my browser data before clicking the link. I was redirected to the following page:
 
