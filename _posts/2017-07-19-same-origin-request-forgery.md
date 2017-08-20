@@ -2,7 +2,7 @@
 layout:     post
 title:      "Exploiting XSS With Same-Origin Request Forgery"
 date:       2017-07-19
-summary:    "One of the seldom discussed weaknesses in many cross-site request forgery mitigations is the fact that you can still forge these requests on the same origin."
+summary:    "Stealing cookies and spoofing login forms aren't the only ways to exploit XSS."
 ---
 Before we begin, some of the things I will be talking about in this article include:
 * [Cross-Site Scripting (XSS)](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29)
@@ -11,7 +11,7 @@ Before we begin, some of the things I will be talking about in this article incl
 
 If you are not familiar with these concepts, you may want to do some reading and understand what they are. I've included some links as starting points. If you already know what all of them are, then read on.
 
-Today I'll be talking about a weakness that exists in a large number of CSRF mitigations: They can be circumvented with XSS. Let's do a quick run down of the many forms on CSRF mitigations, and how they work.
+Today I'll be talking about one form of XSS exploitation: Bypassing CSRF mitigations. Let's do a quick run down of the many forms on CSRF mitigations, and how they work.
 
 The following can be used to guard against CSRF:
 * A CSRF token
@@ -29,7 +29,7 @@ Referer header validation is checking the value of the referer request header to
 
 Custom request headers, non-basic content types, and non-basic request methods are all protected by [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS). The "Simple Requests" section of the linked document details the type of requests that are allowed to be sent cross-origin without triggering CORS. If you use a non-basic method or header, then your browser must send a pre-flighted OPTIONS request to check if it is allowed to send the request (You can allow sites to circumvent CORS with the Access-Control-Allow-Origin header). [This write-up](https://github.com/dxa4481/CORS) from a couple weeks ago talks about how CORS protections aren't always reliable. Chromium had [a bug which was open for two years](https://bugs.chromium.org/p/chromium/issues/detail?id=490015) that enabled attackers to CSRF JSON content-types, and Chromium devs didn't understand why that was an issue.
 
-All of these methods except the CSRF token are flawed in that they can be circumvented by an attacker exploiting XSS.
+All of these methods can be circumvented by an attacker exploiting XSS.
 
 Here's an example attack scenario. Suppose that your application has two privilege levels: admins and users. Admins have the ability to grant users administrative privileges using an admin panel. The request to change a user's privilege level looks like this:  
 ```
@@ -55,5 +55,7 @@ Let's suppose that this vulnerability exists on the search function. An attacker
 <pre class="highlight" style="white-space: pre-wrap;">https://example.com/search?q=&lt;script&gt;x=new+XMLHttpRequest;x.open('PUT','/admin/users',true);x.setRequestHeader('Content-Type','application/json');x.send('{"userId":35742,"role":"admin"}');&lt;/script&gt;</pre>
 
 Encodings could be used to obfuscate the URL and make what is does less obvious. Then, when the admin opens the link, the request is sent and the attacker's account privileges are elevated to admin.
+
+CSRF tokens can also be be bypassed with XSS, but it is a bit more difficult to do. If the XSS vulnerability resides on the same page as a form, then it's fairly trivial to grab the CSRF token from the DOM and include it in your request. XSS vulnerabilities that don't reside on a page with a CSRF token can still perform CSRF by making a request to a resource with a CSRF token and retrieving it from the response, but now your injection must be quite long, which complicates exploitation.
 
 This is nothing new or innovative, but it's something that should be kept in mind when evaluating the threat of XSS, which tends to be underestimated by those who do not understand its full capabilities. Additionally, CORS alone should not be relied upon for CSRF protection. Browser bugs can leave you vulnerable, so it's best to program your application to defend itself instead of relying on browser protections.
