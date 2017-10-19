@@ -19,7 +19,7 @@ bing_verification:
 # Optional features
 animated:             true
 show_related_posts:   false
-show_post_footers:    false
+show_post_footers:    true
 show_social_icons:    true
 ajaxify_contact_form: false
 enable_mathjax:       false
@@ -35,7 +35,7 @@ fb_page_id:
 
 # Disqus post comments
 # (leave blank to disable Disqus)
-disqus_shortname: brianwilliams
+disqus_shortname:
 
 # txtpen post comments
 # (leave blank to disable txtpen)
@@ -82,7 +82,7 @@ text:
     newer: 'Newer'
     older: 'Older'
   share_buttons:
-    text:         'Share this post!'
+    text:         'Share this: '
     facebook:     'Share on Facebook'
     twitter:      'Share on Twitter'
     googleplus:   'Share on Google+'
@@ -93,7 +93,7 @@ text:
     stumbleupon:  'Share on StumbleUpon'
     hackernews:   'Share on Hacker News'
   post:
-    updated:        'Updated'
+    updated:        'Last Updated'
     related_posts:  'Related Posts'
   index:
     coming_soon: 'Coming soon...'
@@ -105,7 +105,7 @@ text:
     ajax:
       sending:  'sending..'
       sent:     'Message sent!'
-      error:    'Something is broken. :( Try emailing.'
+      error:    'Sorry, something is broken. :( Try emailing.'
   thanks: 'Thanks for your message. I will reply as soon as possible.'
   og_locale: 'en_US'
 
