@@ -7,6 +7,8 @@ summary:    "Mr. Robot S3E2 ending has a hidden puzzle."
 
 In the ending of episode 2 Agent DiPierro realizes that Elliot knew he was being spied on, and sent a message to them. How?
 
+![The email](/images/3/email.png)
+
 You can actually visit the link in the email that he sent: [https://sandbox.vflsruxm.net/plans.rar](https://sandbox.vflsruxm.net/plans.rar)
 
 This page has some base64.
