@@ -47,7 +47,7 @@ So, we can decode the base64, write it to a file, then unzip the file.
 
 ![Unzipping file](/images/3/unrar.png)
 
-We get a .jpg file with a QR code.
+We get a .png file with a QR code.
 
 ![QR code](/images/3/jBouaqK9R8jXxfpE6kGV.png)
 
