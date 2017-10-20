@@ -38,7 +38,7 @@ ZD6p9CyMpd4is9eDfl9+IspNGtGMaOntIJiBc8RzmvR4oOxlK3jP9ZJ4Rc+Qu4hx
 k+O/EeVJkZ2Y6hDg/OAdd1ZRAwUEAA==
 ```
 
-When decoded, when can see that this is actually a rar file.  
+When decoded, we can see that this is actually a .rar file.  
 ![Decoded rar](/images/3/decode.png)
 
 So, we can decode the base64, write it to a file, then unzip the file.  
