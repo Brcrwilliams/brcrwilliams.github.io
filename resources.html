@@ -1,0 +1,18 @@
+---
+layout: default
+title: Resources
+permalink: /resources/
+tags: resource_index
+---
+
+<div class="home">
+    <div class="posts">
+      {% for page in site.pages %}
+        {% if page.tags contains "resources" %}
+          <div class="post py3">
+            <a href="{{ page.url | prepend: site.baseurl }}" class="post-link"><h3 class="h1 post-title">{{ page.title }}</h3></a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+</div>

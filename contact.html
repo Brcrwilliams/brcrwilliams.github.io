@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Contact
-permalink: /contact/
+permalink: /contact
 tags: contact
 ---
 
@@ -26,33 +26,29 @@ tags: contact
         -webkit-transition: visibility 0.2s ease-in-out;
         transition: visibility 0.2s ease-in-out;
     }
-
 </style>
 
 <script src="/js/clipboard.min.js"></script>
 <script>
-    var key;
-    fetch('/brianwilliamspgp.txt').then(function(response) {
-        response.text().then(function(text) {
-            key = text;
-        });
-    });
+    let key = fetch('/brianwilliamspgp.txt').then(res => res.text());
 
-     var clipboard = new Clipboard('#copy', {
-        text: function(trigger){
-            return key;
-        }
-    });
+    key.then(text => {
+        var clipboard = new Clipboard('#copy', {
+           text: trigger => {
+               return text;
+           }
+       });
 
-    clipboard.on('success', function(e) {
-        $('.tooltiptext').css('visibility', 'visible');
-        $('#copy').one('mouseout', function(){
-            $('.tooltiptext').fadeOut(500, function(){
-                $('.tooltiptext').css({"display": "inline","visibility": "hidden"});
-            });
-        });
+       clipboard.on('success', e => {
+           $('.tooltiptext').css('visibility', 'visible');
+           $('#copy').one('mouseout', () => {
+               $('.tooltiptext').fadeOut(500, () => {
+                   $('.tooltiptext').css({"display": "inline","visibility": "hidden"});
+               });
+           });
 
-        e.clearSelection();
+           e.clearSelection();
+       });
     });
 </script>
 
